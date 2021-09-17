@@ -1,5 +1,7 @@
 # DOCKER LARAVEL PHPMYADMIN MYSQL NGINX
 
+[Documentación en español](./README-es.md)
+
 Use WordPress locally with Docker using [Docker compose](https://docs.docker.com/compose/)
 
 ## Instructions
@@ -34,6 +36,10 @@ NGINX_PORT= 8092
 OS_USER=ubuntuUser # to get your current user, run: whoami
 OS_UID=1000
 ```
+
+### 2. To avoid permissions issues
+
+You should create an empty file in src folder due to if the src folder is empty, docker set the permissions of container.
 </details>
 
 <details>
@@ -91,6 +97,25 @@ Running composer on docker test_php_1
 Composer version 2.1.5 2021-07-23 10:35:47
 ```
 
+4. Issues
+
+If you can't copy or run the bins
+
+ - Can't copy?:
+    - Locate with your terminal nn /usr/local/bin and repeat the instructions below for each bin
+    - Run: `sudo nano phplaravel`
+    - Copy or write:
+        ```shell
+        path=$(printf '%s\n' "${PWD##*/}")
+        command="docker exec ${path}_php_1 php "$@""
+        echo "Running php on docker ${path}_php_1"
+        $command
+        ```
+    - Save
+ - Can't run?
+    - Run: `sudo chmod 755 phplaravel`
+    - Done!
+
 </details>
 <details>
 <summary>Creating a new Laravel project</summary>
@@ -111,4 +136,15 @@ DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
 
+</details>
+<details>
+<summary>Nodejs and npm</summary>
+
+# Downloading nodejs and npm
+
+Just uncomment the line in config/php/Dockerfile
+
+After that, copy the bins nodelaravel and npmlaravel in /usr/local/bin
+
+And that's all, you can use it run the commands in your root project
 </details>
